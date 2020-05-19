@@ -109,6 +109,7 @@ stages:
     dependsOn: Provision
     variables:
       WebAppNameDev: $[ dependencies.Provision.outputs['RunTerraform.WebAppNameDev'] ]
+      System.Debug: 'true'
     pool:
       vmImage: 'ubuntu-16.04'
     environment: dev
@@ -122,5 +123,5 @@ stages:
             displayName: 'Azure App Service Deploy: website'
             inputs:
               azureSubscription: 'Resource Manager - Tailspin - Space Game'
-              appName: '$(WebAppNameDev).azurewebsites.net'
+              appName: '$(WebAppNameDev)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
