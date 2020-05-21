@@ -121,13 +121,13 @@ stages:
 - stage: DBAVerificationScript
   displayName: 'Script database schema changes'
   dependsOn: Provision
-  system.debug: 'true'
   jobs:
   - deployment: DBAVerificationScript
     pool:
       vmImage: 'windows-2019'
     variables:
     - group: 'Release'
+      system.debug: 'true'
     environment: 'dbaverificationscript'
     strategy:
       runOnce:
