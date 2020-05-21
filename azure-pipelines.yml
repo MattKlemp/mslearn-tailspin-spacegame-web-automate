@@ -121,6 +121,7 @@ stages:
 - stage: DBAVerificationScript
   displayName: 'Script database schema changes'
   dependsOn: Provision
+  system.debug: 'true'
   jobs:
   - deployment: DBAVerificationScript
     pool:
