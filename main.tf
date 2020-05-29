@@ -26,12 +26,12 @@ variable "app_service_plan_name" {
 
 variable "app_service_name_prefix" {
   default = "tailspin-space-game-web"
-  description = "The beginning part of your App Service host name"
+  description = "The beginning part of the App Service host name"
 }
 
-resource "random_integer" "app_service_name_suffix" {
-  min = 1000
-  max = 9999
+variable "app_service_name_suffix" {
+  default = "mklemp"
+  description = "The ending part of the App Service host name"
 }
 
 resource "azurerm_resource_group" "spacegame" {
@@ -53,7 +53,7 @@ resource "azurerm_app_service_plan" "spacegame" {
 }
 
 resource "azurerm_app_service" "spacegame_dev" {
-  name                = "${var.app_service_name_prefix}-dev-${random_integer.app_service_name_suffix.result}"
+  name                = "${var.app_service_name_prefix}-dev-${var.app_service_name_suffix}"
   location            = "${azurerm_resource_group.spacegame.location}"
   resource_group_name = "${azurerm_resource_group.spacegame.name}"
   app_service_plan_id = "${azurerm_app_service_plan.spacegame.id}"
