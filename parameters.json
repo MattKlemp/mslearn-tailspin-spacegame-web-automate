@@ -2,11 +2,11 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "sites_tailspin_space_game_dev_mklemp_name": {
-            "value": null
+        "webAppName": {
+            "value": "tailspin-space-game-dev-mklemp"
         },
-        "serverfarms_ASP_tailspinspacegamerg_bf2d_name": {
-            "value": null
+        "appServicePlanName": {
+            "value": "ASP-tailspinspacegamerg"
         }
     }
 }

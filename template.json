@@ -2,13 +2,11 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "sites_tailspin_space_game_dev_mklemp_name": {
-            "defaultValue": "tailspin-space-game-dev-mklemp",
-            "type": "String"
+        "webAppName": {
+            "type": "string"
         },
-        "serverfarms_ASP_tailspinspacegamerg_bf2d_name": {
-            "defaultValue": "ASP-tailspinspacegamerg-bf2d",
-            "type": "String"
+        "appServicePlanName": {
+            "type": "string"
         }
     },
     "variables": {},
@@ -16,7 +14,7 @@
         {
             "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2018-02-01",
-            "name": "[parameters('serverfarms_ASP_tailspinspacegamerg_bf2d_name')]",
+            "name": "[parameters('appServicePlanName')]",
             "location": "West US",
             "sku": {
                 "name": "F1",
@@ -40,27 +38,27 @@
         {
             "type": "Microsoft.Web/sites",
             "apiVersion": "2018-11-01",
-            "name": "[parameters('sites_tailspin_space_game_dev_mklemp_name')]",
+            "name": "[parameters('webAppName')]",
             "location": "West US",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_tailspinspacegamerg_bf2d_name'))]"
+                "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
             ],
             "kind": "app,linux",
             "properties": {
                 "enabled": true,
                 "hostNameSslStates": [
                     {
-                        "name": "[concat(parameters('sites_tailspin_space_game_dev_mklemp_name'), '.azurewebsites.net')]",
+                        "name": "[concat(parameters('webAppName'), '.azurewebsites.net')]",
                         "sslState": "Disabled",
                         "hostType": "Standard"
                     },
                     {
-                        "name": "[concat(parameters('sites_tailspin_space_game_dev_mklemp_name'), '.scm.azurewebsites.net')]",
+                        "name": "[concat(parameters('webAppName'), '.scm.azurewebsites.net')]",
                         "sslState": "Disabled",
                         "hostType": "Repository"
                     }
                 ],
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_tailspinspacegamerg_bf2d_name'))]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]",
                 "reserved": true,
                 "isXenon": false,
                 "hyperV": false,
@@ -78,10 +76,10 @@
         {
             "type": "Microsoft.Web/sites/config",
             "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('sites_tailspin_space_game_dev_mklemp_name'), '/web')]",
+            "name": "[concat(parameters('webAppName'), '/web')]",
             "location": "West US",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_tailspin_space_game_dev_mklemp_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
             ],
             "properties": {
                 "numberOfWorkers": 1,
@@ -103,7 +101,7 @@
                 "httpLoggingEnabled": false,
                 "logsDirectorySizeLimit": 35,
                 "detailedErrorLoggingEnabled": false,
-                "publishingUsername": "$tailspin-space-game-dev-mklemp",
+                "publishingUsername": "[parameters('webAppName')]",
                 "scmType": "None",
                 "use32BitWorkerProcess": true,
                 "webSocketsEnabled": false,
@@ -150,13 +148,13 @@
         {
             "type": "Microsoft.Web/sites/hostNameBindings",
             "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('sites_tailspin_space_game_dev_mklemp_name'), '/', parameters('sites_tailspin_space_game_dev_mklemp_name'), '.azurewebsites.net')]",
+            "name": "[concat(parameters('webAppName'), '/', parameters('webAppName'), '.azurewebsites.net')]",
             "location": "West US",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_tailspin_space_game_dev_mklemp_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
             ],
             "properties": {
-                "siteName": "tailspin-space-game-dev-mklemp",
+                "siteName": "[parameters('webAppName')]",
                 "hostNameType": "Verified"
             }
         }
