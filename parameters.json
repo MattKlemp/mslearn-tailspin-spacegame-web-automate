@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "webAppName": {
-            "value": "tailspin-space-game-dev-mklemp"
+            "value": "tailspin-space-game-dev-mattklemp"
         },
         "appInsightsName": {
             "value": "tailspinspacegame-AI"
