@@ -12,6 +12,17 @@
     "variables": {},
     "resources": [
         {
+            "type": "microsoft.insights/components",
+            "apiVersion": "2015-05-01",
+            "name": "[parameters('components_asp_mklemp_name')]",
+            "location": "westus",
+            "kind": "web",
+            "properties": {
+                "Application_Type": "web",
+                "Request_Source": "IbizaWebAppExtensionCreate"
+            }
+        },
+        {
             "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2018-02-01",
             "name": "[parameters('appServicePlanName')]",
@@ -21,14 +32,14 @@
                 "tier": "Free",
                 "size": "F1",
                 "family": "F",
-                "capacity": 1
+                "capacity": 0
             },
-            "kind": "linux",
+            "kind": "app",
             "properties": {
                 "perSiteScaling": false,
                 "maximumElasticWorkerCount": 1,
                 "isSpot": false,
-                "reserved": true,
+                "reserved": false,
                 "isXenon": false,
                 "hyperV": false,
                 "targetWorkerCount": 0,
@@ -43,7 +54,7 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
             ],
-            "kind": "app,linux",
+            "kind": "app",
             "properties": {
                 "enabled": true,
                 "hostNameSslStates": [
@@ -59,12 +70,12 @@
                     }
                 ],
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]",
-                "reserved": true,
+                "reserved": false,
                 "isXenon": false,
                 "hyperV": false,
                 "siteConfig": {},
                 "scmSiteAlsoStopped": false,
-                "clientAffinityEnabled": false,
+                "clientAffinityEnabled": true,
                 "clientCertEnabled": false,
                 "hostNamesDisabled": false,
                 "containerSize": 0,
@@ -95,7 +106,6 @@
                     "hostingstart.html"
                 ],
                 "netFrameworkVersion": "v4.0",
-                "linuxFxVersion": "DOTNETCORE|3.1",
                 "requestTracingEnabled": false,
                 "remoteDebuggingEnabled": false,
                 "httpLoggingEnabled": false,
