@@ -5,6 +5,9 @@
         "webAppName": {
             "type": "string"
         },
+        "appInsightsName": {
+            "type": "string"
+        },
         "appServicePlanName": {
             "type": "string"
         }
@@ -14,7 +17,7 @@
         {
             "type": "microsoft.insights/components",
             "apiVersion": "2015-05-01",
-            "name": "[parameters('components_asp_mklemp_name')]",
+            "name": "[parameters('appInsightsName')]",
             "location": "westus",
             "kind": "web",
             "properties": {

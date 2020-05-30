@@ -5,8 +5,11 @@
         "webAppName": {
             "value": "tailspin-space-game-dev-mklemp"
         },
+        "appInsightsName": {
+            "value": "tailspinspacegame-AI"
+        },
         "appServicePlanName": {
-            "value": "ASP-tailspinspacegamerg"
+            "value": "tailspinspacegame-ASP"
         }
     }
 }
